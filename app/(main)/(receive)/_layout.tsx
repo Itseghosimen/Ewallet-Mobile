@@ -104,6 +104,30 @@ export default function ReceiveLayout() {
                     ),
 
                 }} />
+            <Stack.Screen name='quickMainnet'
+                options={{
+                    title: 'Select a Mainnet',
+                    headerBackTitle: '',
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        color: Colors[colorScheme].tint
+                    },
+                    headerTitleAlign: 'center',
+                    headerShadowVisible: false,
+                    headerStyle: { backgroundColor: Colors[colorScheme].background },
+                    headerLeft: () => (
+                        <StyledTouch onPress={router.back}>
+                            <Image source={require('@/assets/icons/back-arrow.png')}
+                                style={{
+                                    height: 25,
+                                    width: 25,
+                                    tintColor: Colors[colorScheme].tint
+                                }}
+                            />
+                        </StyledTouch>
+                    ),
+
+                }} />
         </Stack>
     )
 }

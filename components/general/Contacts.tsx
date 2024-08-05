@@ -17,7 +17,7 @@ export default function Contacts() {
             }}
             showsHorizontalScrollIndicator={false}
             data={contact} renderItem={({ item }) => (
-                <StyledComponent component={TouchableWithoutFeedback} onPress={() => router.push('send')}>
+                <StyledComponent component={TouchableWithoutFeedback} onPress={() => router.push(`(modal)/quickTransfer/${item.title}`)}>
                     <StyledView>
                         <ImageBackground source={item.image} style={{
                             height: 60,

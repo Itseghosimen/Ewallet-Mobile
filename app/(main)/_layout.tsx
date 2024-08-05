@@ -61,6 +61,13 @@ export default function MainLayout() {
 
                 }}
             />
+            <Stack.Screen name="(modal)/quickTransfer/[slug]"
+                options={{
+                    headerShown: false,
+                    presentation: 'transparentModal',
+
+                }}
+            />
         </Stack>
     )
 }

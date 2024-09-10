@@ -34,11 +34,11 @@ export default function transactionOutcome() {
             </StyledView>
             <StyledView className='flex-1' />
             <StyledView className='flex-row items-center' style={{ gap: 13 }}>
-                <Button title={"Close"} onPress={() => router.push('home')}
+                <Button title={"Close"} onPress={() => router.push('/home')}
                     style={'flex-grow h-12 border border-black dark:border-primary rounded-full justify-center'}
                     textStyle={'text-black dark:text-white'}
                 />
-                <Button title={"View Details"} onPress={() => router.push('transactionReceipt')}
+                <Button title={"View Details"} onPress={() => router.push('/transactionReceipt')}
                     style={'flex-grow h-12 bg-black dark:bg-primary rounded-full justify-center'}
                     textStyle={'text-white dark:text-black'}
                 />

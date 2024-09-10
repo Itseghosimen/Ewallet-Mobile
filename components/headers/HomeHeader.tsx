@@ -22,7 +22,7 @@ export default function HomeHeader() {
 
             <StyledView className='h-14 flex-row items-center justify-between px-3'>
                 <Button
-                    onPress={() => router.push('profile')}
+                    onPress={() => router.push('/profile')}
                     title={`Hello ${'Micheal'}`}
                     textStyle={'text-base text-black dark:text-white'}
                     style={'gap-2'}
@@ -69,7 +69,7 @@ export default function HomeHeader() {
                         </StyledView>
                     </StyledTouch>
                     <StyledTouch
-                        onPress={() => router.push('transaction')}>
+                        onPress={() => router.push('/transaction')}>
                         <StyledView className='relative'>
                             <Image
                                 source={require('@/assets/icons/clipboard2.png')}
@@ -92,7 +92,7 @@ export default function HomeHeader() {
                         </StyledView>
                     </StyledTouch>
                     <StyledTouch
-                        onPress={() => router.push('(modal)/tokenModal')}>
+                        onPress={() => router.push('/(modal)/tokenModal')}>
                         <Image
                             source={require('@/assets/icons/tok.png')}
                             style={{

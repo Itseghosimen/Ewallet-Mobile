@@ -14,12 +14,12 @@ export default function Button(props:
     }) {
     return (
         <StyledComponent component={TouchableWithoutFeedback}
-            onPress={props.onPress}>
+            onPress={props.onPress} >
             <StyledView className={`flex-row items-center ${props.style}`}>
                 {props.Icon && props.Icon}
-                <StyledText className={`text-base   ${props.textStyle}`}
+                <StyledText className={`text-base ${props.textStyle}`}
                     style={{
-                        fontFamily: 'Inter_500Medium',
+                        fontFamily: 'Inter_600SemiBold',
                     }}>
                     {props.title}
                 </StyledText>

@@ -2,8 +2,7 @@ import React from 'react'
 import { Image, ImageBackground } from 'expo-image';
 import { StyledText, StyledView } from '@/constants/imports';
 import { FlatList, TouchableWithoutFeedback } from 'react-native';
-import { StyledComponent } from 'nativewind';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 
 export default function Contacts() {
     return (
@@ -17,29 +16,31 @@ export default function Contacts() {
             }}
             showsHorizontalScrollIndicator={false}
             data={contact} renderItem={({ item }) => (
-                <StyledComponent component={TouchableWithoutFeedback} onPress={() => router.push(`(modal)/quickTransfer/${item.title}`)}>
-                    <StyledView>
-                        <ImageBackground source={item.image} style={{
-                            height: 60,
-                            width: 60,
-                            borderRadius: 8,
-                            overflow: 'hidden'
-                        }} />
-                        <Image source={require('@/assets/icons/enet.png')}
-                            style={{
-                                height: 13,
-                                width: 13,
-                                position: 'absolute',
-                                top: 42,
-                                left: 2
-                            }}
-                            contentFit='contain' />
-                        <StyledText
-                            className='text-xs  text-black dark:text-white text-center mt-1'>
-                            {item.title}
-                        </StyledText>
-                    </StyledView>
-                </StyledComponent>
+                <Link href={`/(quickTransfer)/${item.title}`} asChild>
+                    <TouchableWithoutFeedback>
+                        <StyledView>
+                            <ImageBackground source={item.image} style={{
+                                height: 60,
+                                width: 60,
+                                borderRadius: 8,
+                                overflow: 'hidden'
+                            }} />
+                            <Image source={require('@/assets/icons/enet.png')}
+                                style={{
+                                    height: 13,
+                                    width: 13,
+                                    position: 'absolute',
+                                    top: 42,
+                                    left: 2
+                                }}
+                                contentFit='contain' />
+                            <StyledText
+                                className='text-xs  text-black dark:text-white text-center mt-1'>
+                                {item.title}
+                            </StyledText>
+                        </StyledView>
+                    </TouchableWithoutFeedback>
+                </Link>
 
             )} />
     )

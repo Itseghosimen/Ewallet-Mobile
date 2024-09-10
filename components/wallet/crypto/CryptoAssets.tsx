@@ -25,7 +25,7 @@ export default function CryptoAssets() {
                 return (
 
                     <StyledComponent
-                        onPress={() => router.push('walletToken/[slug]')}
+                        onPress={() => router.push('/walletToken/[slug]')}
                         component={TouchableWithoutFeedback}>
                         <StyledView
                             className='pr-1.5 pb-1.5 pt-3 pl-3'

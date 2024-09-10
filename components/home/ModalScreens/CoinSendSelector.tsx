@@ -17,7 +17,7 @@ export default function CoinSendSelector() {
             <StyledComponent
 
                 component={TouchableWithoutFeedback}
-                onPress={() => router.push('quickMainnet')}
+                onPress={() => router.push('/quickMainnet')}
             >
                 <StyledView
                     style={{

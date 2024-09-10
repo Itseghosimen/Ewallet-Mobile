@@ -37,7 +37,7 @@ export default function TradeHeader() {
                     />
                     <StyledView>
                         <StyledTouch
-                            onPress={() => router.push('swapToken')}
+                            onPress={() => router.push('/swapToken')}
                             className='flex-row items-center'>
                             <StyledText
                                 style={{

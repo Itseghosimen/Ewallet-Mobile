@@ -98,7 +98,7 @@ export default function RecoveryDialPad({ onPress, forget, confirm, confirmBtn }
                         className='flex items-center justify-center rounded-lg bg-background'
                         style={{
                             height: layout.width * 0.46,
-                            width: layout.width * 0.2,
+                            width: layout.width * 0.23,
                             backgroundColor: confirmBtn <= 5 ? Colors[colorScheme].otpbg : Colors[colorScheme].primary,
                         }}>
                         <StyledText style={{

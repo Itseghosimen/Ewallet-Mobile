@@ -4,16 +4,35 @@ import Button from '@/components/general/Buttons/Button';
 import { StyledText, StyledTouch, StyledView } from '@/constants/imports';
 import { router } from 'expo-router';
 import { Colors } from '@/constants/Colors';
-import { Dimensions, StatusBar } from "react-native";
+import { Dimensions, Platform } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import AccountRecovery from "./(auth)/(modals)/accountRecovery";
+import AndroidLogin from "./(auth)/(modals)/androidLogin";
 
-export default function index() {
+export default function wwelcome() {
     const { colorScheme } = useColorScheme();
     const layout = Dimensions.get('window')
+    const [isVisible, setIsVisible] = useState<boolean>(false)
+    const [isRecovery, setIsRecovery] = useState<boolean>(false)
+
+    const deviceLogin = () => {
+        // if (Platform.OS === 'android') {
+        //Openning Modal
+        setIsVisible(true)
+        // } else {
+        // perform apple login with icloud
+        // }
+    }
+
+    const requestClose = () => {
+        setIsVisible(false)
+        setIsRecovery(false)
+    }
+
     return (
         <StyledView className='px-3 pb-5 flex-1 gap-6 bg-white dark:bg-background'>
-            <StatusBar
-                barStyle={colorScheme == 'dark' ? 'light-content' : 'dark-content'}
-            />
+            <StatusBar style="auto" />
             <StyledView>
                 {
                     colorScheme == 'light' ?
@@ -37,32 +56,21 @@ export default function index() {
                 }
             </StyledView>
             <StyledView>
-                {
-                    colorScheme == 'light' ?
-                        <Image
-                            source={
-                                require('@/assets/images/cryptoTextLight.png')
-                            }
-                            style={{
-                                height: layout.height * 0.2,
-                                width: layout.width
-                            }}
-                            contentFit='contain' /> :
-                        <Image
-                            source={
-                                require('@/assets/images/cryptoText.png')
-                            }
-                            style={{
-                                height: layout.height * 0.2,
-                                width: layout.width
-                            }}
-                            contentFit='contain' />
-
-                }
+                <Image
+                    source={
+                        require('@/assets/images/cryptoText.png')
+                    }
+                    style={[{
+                        height: layout.height * 0.2,
+                        width: layout.width,
+                    }, colorScheme === 'light' && {
+                        tintColor: 'black'
+                    }]}
+                    contentFit='contain' />
             </StyledView>
             <StyledView>
                 <StyledText
-                    className='text-center text-light-text dark:text-dark-text text-[15px] leading-6'
+                    className='text-center text-light-text dark:text-dark-text text-[14.5px] leading-6'
                     style={{
                         fontFamily: 'Inter_400Regular',
                     }}>
@@ -73,41 +81,22 @@ export default function index() {
             <StyledView className="flex-1 justify-evenly">
                 <StyledView
                     className='flex-row items-center justify-between'>
-                    <Button onPress={undefined}
-                        textStyle={'text-black dark:text-white'}
-                        Icon={
-                            <Image source={require('@/assets/icons/back-arrow.png')}
-                                style={{
-                                    height: 20,
-                                    width: 20,
-                                    tintColor: Colors[colorScheme].primary
-                                }}
-                            />
-                        }
-                        title={'Passkey Sign Up'} />
-                    <Button onPress={() => router.push('signup')}
-                        textStyle={'text-black dark:text-primary'}
-                        style={'flex-row-reverse'}
-                        Icon={
-                            <Image source={require('@/assets/icons/forward-arrow.png')}
-                                style={{
-                                    height: 20,
-                                    width: 20,
-                                    tintColor: Colors[colorScheme].primary
-                                }}
-                            />
-                        }
-                        title={'Get Started'} />
+                    <Button onPress={() => router.push('/generateKeys')}
+                        style={'bg-black dark:bg-primary h-14 rounded-full max-w-[60vw] w-full justify-center'}
+                        textStyle={'text-white text-sm dark:text-black font-bold'}
+                        title={'Passkey Account Creation'}
+                    />
+                    <Button onPress={deviceLogin}
+                        textStyle={'text-white text-sm dark:text-white font-bold'}
+                        style={'bg-disabledLight dark:bg-disabled h-14 rounded-full max-w-[30vw] w-full justify-center'}
+                        title={'login'} />
                 </StyledView>
 
-                <StyledView className='gap-1 xjustify-center pt-5 items-center'>
-                    <StyledText className='text-center   text-[#6A6A6A] text-sm' style={{
-                        fontFamily: 'Inter_500Medium',
-                    }}>Or continue with</StyledText>
+                <StyledView className='gap-1 justify-center pt-5 items-center'>
+
                     <StyledView
                         className='flex-row items-center justify-center gap-3'>
                         <StyledTouch
-                            onPress={() => router.push('home')}
                             className='border border-black dark:border-primary/40 h-11 w-11 flex items-center justify-center rounded-xl'>
                             <Image source={require('@/assets/icons/google.png')}
                                 style={{
@@ -117,7 +106,6 @@ export default function index() {
                             />
                         </StyledTouch>
                         <StyledTouch
-                            onPress={() => router.push('home')}
                             className='border border-black dark:border-primary/40 h-11 w-11 flex items-center justify-center rounded-xl'>
                             <Image source={require('@/assets/icons/apple.png')}
                                 style={{
@@ -130,12 +118,20 @@ export default function index() {
                     </StyledView>
                 </StyledView>
             </StyledView>
-            <StyledView className='flex-row items-center justify-center'>
-                <StyledText className='text-base text-black/80  dark:text-white ' style={{
-                    fontFamily: 'Inter_500Medium',
-                }}>I have an account?{' '}</StyledText>
-                <Button title={'Login'} textStyle={'text-base text-black dark:text-primary '} onPress={() => router.push('login')} />
+            <StyledView className='flex-row items-center justify-center mb-5'>
+                <Button
+                    title={'Recover Account'}
+                    textStyle={'text-sm text-black dark:text-white'}
+                    onPress={() => setIsRecovery(true)} />
             </StyledView>
+            <AndroidLogin
+                isVisible={isVisible}
+                close={requestClose}
+            />
+            <AccountRecovery
+                isVisible={isRecovery}
+                close={requestClose}
+            />
         </StyledView >
     )
 }

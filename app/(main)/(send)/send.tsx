@@ -24,7 +24,7 @@ export default function send() {
     }
 
     return (
-        <StyledView className='flex-1 bg-white dark:bg-background px-3'
+        <StyledView className='flex-1 bg-white dark:bg-background px-3 pb-5'
         >
             <StatusBar
                 barStyle={colorScheme == 'dark' ? 'light-content' : 'dark-content'}
@@ -210,7 +210,7 @@ export default function send() {
                 railFillBorderColor={Colors[colorScheme].primary}
                 raild
                 shouldResetAfterSuccess={true}
-                onSwipeSuccess={() => router.push('confirmOrder')}
+                onSwipeSuccess={() => router.push('/confirmOrder')}
 
             />
 

@@ -78,7 +78,7 @@ export default function Balance(props: { balance: number; increase: number; perc
             <StyledView>
                 {
                     props.menu &&
-                    <Button title={'Menu'} onPress={() => router.push('(modal)/menuModal')}
+                    <Button title={'Menu'} onPress={() => router.push('/(modal)/menuModal')}
                         Icon={
                             <Image
                                 source={require('@/assets/icons/menu.png')}

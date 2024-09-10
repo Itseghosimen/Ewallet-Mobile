@@ -40,7 +40,7 @@ export default function receive() {
                 <StyledView className='mt-8 items-center flex'>
                     <StyledText className='text-xs text-center text-secondary mb-2.5'>Can`t find a token?</StyledText>
                     <Button title='Add Token'
-                        onPress={() => router.push('mainnet')}
+                        onPress={() => router.push('/mainnet')}
                         style={'px-5 h-12 rounded-full border-2 border-secondary'}
                         textStyle={'ml-2.5 text-black dark:text-white'}
                         Icon={

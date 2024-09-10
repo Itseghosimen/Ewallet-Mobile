@@ -49,7 +49,11 @@ export default function DialPad({ onPress, del, confirm, confirmBtn }: {
                                             height: layout.width * 0.2,
                                             width: layout.width * 0.2
                                         }}>
-                                        <StyledText className={`text-xl ${colorScheme == 'dark' ? 'text-[#ADB5BF]' : 'text-black'}`}>
+                                        <StyledText className={`text-xl ${colorScheme == 'dark' ? 'text-[#ADB5BF]' : 'text-black'}`}
+                                            style={{
+                                                fontFamily: 'Inter_600SemiBold',
+                                            }}
+                                        >
                                             {item == 'zero' ? 0 : item}
                                         </StyledText>
                                     </StyledTouch>
@@ -61,7 +65,7 @@ export default function DialPad({ onPress, del, confirm, confirmBtn }: {
 
                 <StyledView className='pb-7 justify-between' style={{
                     gap: layout.width * 0.07,
-                    height: layout.width * 0.83
+                    height: layout.width * 0.835,
                 }}>
                     <StyledTouch
                         onPress={() => del('del')}
@@ -83,12 +87,12 @@ export default function DialPad({ onPress, del, confirm, confirmBtn }: {
                         className='flex items-center justify-center rounded-lg bg-background'
                         style={{
                             height: layout.width * 0.5,
-                            width: layout.width * 0.2,
+                            width: layout.width * 0.23,
                             backgroundColor: confirmBtn <= 5 ? Colors[colorScheme].otpbg : Colors[colorScheme].primary,
                         }}>
                         <StyledText
                             className={` ${confirmBtn <= 5 ? 'text-black dark:text-white' : 'text-white dark:text-black'} `} style={{
-                                fontFamily: 'Inter_500Medium',
+                                fontFamily: 'Inter_600SemiBold',
                             }}>
                             Confirm
                         </StyledText>

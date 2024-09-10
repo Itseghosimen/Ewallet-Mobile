@@ -39,7 +39,7 @@ export default function settings() {
                         type='link'
                         title={'App setting'}
                         description='Phone & E-mail'
-                        onPress={() => router.push('appSettings')} />
+                        onPress={() => router.push('/appSettings')} />
                     <SettingBtn
                         frontIcon={require('@/assets/icons/security-user.png')}
                         type='switch'
@@ -71,7 +71,7 @@ export default function settings() {
                         type='link'
                         title={'Security'}
                         description='Set Guardians,Trusted list, Spend limit'
-                        onPress={() => router.push('security')} />
+                        onPress={() => router.push('/security')} />
                 </StyledView>
 
                 <StyledView className='flex' style={{ gap: 30 }}>
@@ -182,7 +182,7 @@ export default function settings() {
                         type='link'
                         settings={true}
                         title={'About us'}
-                        onPress={() => router.push('about')} />
+                        onPress={() => router.push('/about')} />
                 </StyledView>
             </ScrollView>
         </StyledView>

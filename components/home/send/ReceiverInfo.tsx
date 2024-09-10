@@ -2,7 +2,8 @@ import { StyledText, StyledView } from '@/constants/imports'
 import { Image, ImageBackground, ImageSource } from 'expo-image'
 import React from 'react'
 
-export default function ReceiverInfo(props: { person: string | number | ImageSource | ImageSource[] | string[] | null | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; Amount: { toLocaleString: (arg0: string, arg1: { minimumFractionDigits: number; maximumFractionDigits: number; style: string; currency: string }) => string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined }; token: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; icon: string | number | ImageSource | ImageSource[] | string[] | null | undefined; minusGas: { toLocaleString: (arg0: string, arg1: { minimumFractionDigits: number; maximumFractionDigits: number; style: string; currency: string }) => string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined } }) {
+
+export default function ReceiverInfo(props: any) {
 
     return (
         <StyledView className='flex-row justify-between items-center'>

@@ -1,6 +1,5 @@
-import { Stack } from 'expo-router';
-// import * as SplashScreen from 'expo-splash-screen';
-// import { useEffect } from 'react';
+import { router, Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import 'react-native-reanimated';
 import {
   useFonts,
@@ -11,6 +10,8 @@ import {
 } from '@expo-google-fonts/inter';
 import { NativeWindStyleSheet, useColorScheme } from 'nativewind';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Appearance } from 'react-native';
+import { useEffect, useState } from 'react';
 
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -20,6 +21,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
   const { colorScheme } = useColorScheme();
+  const [session, setSession] = useState(false)
   const [fontsLoaded, fontError] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
@@ -27,31 +29,29 @@ export default function RootLayout() {
     Inter_700Bold,
   });
 
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
+  useEffect(() => {
+    if (fontsLoaded && fontError) {
+      Appearance.setColorScheme(colorScheme)
+      // SplashScreen.hideAsync();
+    }
+    if (session) {
+      router.navigate('/home')
+    }
+  }, [fontsLoaded, fontError])
+
+
+
 
   NativeWindStyleSheet.setOutput({
     default: "native",
   });
 
-  // useEffect(() => {
-  //   if (fontsLoaded) {
-  //     SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded]);
-
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
-
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack>
+      <Stack >
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
         <Stack.Screen name="(main)" options={{ headerShown: false }} />
+        <Stack.Screen name='(auth)' options={{ headerShown: false }} />
       </Stack>
     </GestureHandlerRootView>
   );

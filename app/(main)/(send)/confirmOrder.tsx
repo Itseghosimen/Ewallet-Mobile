@@ -57,7 +57,7 @@ export default function confirmOrder() {
 
             <StyledView className='px-3'>
                 <StyledTouch
-                    onPress={() => router.push('requirements')}
+                    onPress={() => router.push('/requirements')}
                     className='h-14 mt-5 w-full border border-black dark:border-primary/80 rounded-full flex items-center justify-center'>
                     <StyledText className='text-black dark:text-primary text-base ' style={{
                         fontFamily: 'Inter_500Medium',

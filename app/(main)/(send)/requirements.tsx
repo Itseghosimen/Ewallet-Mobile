@@ -27,7 +27,7 @@ export default function requirements() {
                         <StyledText className='text-black/80 dark:text-white/80 mr-2'>
                             Verify with Biometris or security keys
                         </StyledText>
-                        <StyledTouch onPress={() => router.push('passkeyVerify')}
+                        <StyledTouch onPress={() => router.push('/passkeyVerify')}
                             className='bg-black dark:bg-primary rounded-lg h-20 w-20 flex items-center justify-center shrink-0'>
                             <Image
                                 source={require('@/assets/icons/security.png')}

@@ -30,7 +30,7 @@ export default function Exchange(props: { max?: boolean | undefined; }) {
                         />
                         <StyledView>
                             <StyledTouch
-                                onPress={() => router.push('swapToken')}
+                                onPress={() => router.push('/swapToken')}
                                 className='flex-row items-center'>
                                 <StyledText
                                     style={{
@@ -175,7 +175,7 @@ export default function Exchange(props: { max?: boolean | undefined; }) {
                         />
                         <StyledView>
                             <StyledTouch
-                                onPress={() => router.push('swapToken')}
+                                onPress={() => router.push('/swapToken')}
                                 className='flex-row items-center'>
                                 <StyledText
                                     style={{

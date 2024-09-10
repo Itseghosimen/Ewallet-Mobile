@@ -37,34 +37,36 @@ export default function MainLayout() {
             <Stack.Screen name="(modal)/coinStatusModal"
                 options={{
                     headerShown: false,
-                    presentation: 'modal'
+                    presentation: 'modal',
+                    animation: 'fade'
                 }}
             />
             <Stack.Screen name="(modal)/tradeModal"
                 options={{
                     headerShown: false,
                     presentation: 'transparentModal',
-
+                    animation: 'fade'
                 }}
             />
             <Stack.Screen name="(modal)/menuModal"
                 options={{
                     headerShown: false,
                     presentation: 'transparentModal',
-
+                    animation: 'fade'
                 }}
             />
             <Stack.Screen name="(modal)/tokenModal"
                 options={{
                     headerShown: false,
                     presentation: 'transparentModal',
-
+                    animation: 'fade'
                 }}
             />
-            <Stack.Screen name="(modal)/quickTransfer/[slug]"
+            <Stack.Screen name="(quickTransfer)/[slug]"
                 options={{
                     headerShown: false,
                     presentation: 'transparentModal',
+                    animation: 'fade'
 
                 }}
             />

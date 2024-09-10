@@ -119,7 +119,7 @@ export default function Crypto() {
                     </StyledView>
                     <StyledView className='flex-row items-center' style={{ gap: 16 }}>
                         <StyledComponent
-                            onPress={() => router.push('management')}
+                            onPress={() => router.push('/management')}
                             component={TouchableWithoutFeedback}>
                             <Image
                                 source={require('@/assets/icons/filter.png')}
@@ -130,7 +130,7 @@ export default function Crypto() {
                                 }} />
                         </StyledComponent>
                         <StyledComponent
-                            onPress={() => router.push('management')}
+                            onPress={() => router.push('/management')}
                             component={TouchableWithoutFeedback}>
                             <Image
                                 source={require('@/assets/icons/search-normal.png')}
@@ -141,7 +141,7 @@ export default function Crypto() {
                                 }} />
                         </StyledComponent>
                         <StyledComponent
-                            onPress={() => router.push('customToken')}
+                            onPress={() => router.push('/customToken')}
                             component={TouchableWithoutFeedback}>
                             <Image
                                 source={require('@/assets/icons/plus.png')}

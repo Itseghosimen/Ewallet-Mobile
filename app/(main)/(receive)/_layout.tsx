@@ -29,7 +29,7 @@ export default function ReceiveLayout() {
                 },
                 headerRight: () => (
                     <Button
-                        onPress={() => router.push('mainnet')}
+                        onPress={() => router.push('/mainnet')}
                         Icon={
                             <Image source={require('@/assets/icons/appst.png')}
                                 style={{

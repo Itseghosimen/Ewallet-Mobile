@@ -35,7 +35,7 @@ export default function customToken() {
                     Network
                 </StyledText>
                 <Button
-                    onPress={() => router.push('network')}
+                    onPress={() => router.push('/network')}
                     title={"Binance"}
                     textStyle={'text-[#F3BA2F] text-sm'}
                     style={'flex-row-reverse'}

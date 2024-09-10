@@ -7,7 +7,7 @@ import { Colors } from '@/constants/Colors';
 import { Image } from 'expo-image';
 import { Feather } from '@expo/vector-icons';
 
-export default function MoreInfo(props: { account: string; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; tokenFull: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; token: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; confirmed: any; fee: { toLocaleString: (arg0: string, arg1: { minimumFractionDigits: number; maximumFractionDigits: number; style: string; currency: string; }) => string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }; whoPaid: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }) {
+export default function MoreInfo(props: any) {
     const { colorScheme } = useColorScheme()
     const layout = Dimensions.get('window')
     const currentdate = new Date();

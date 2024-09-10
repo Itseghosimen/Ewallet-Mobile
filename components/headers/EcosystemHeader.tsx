@@ -34,7 +34,7 @@ export default function EcosystemHeader() {
                     }} className='text-base   text-black dark:text-primary'>Ecosystem</StyledText>
                 </StyledView>
 
-                <StyledTouch onPress={() => router.push('customWidget')}>
+                <StyledTouch onPress={() => router.push('/customWidget')}>
                     <Image
                         source={require('@/assets/icons/category.png')}
                         style={{

@@ -153,22 +153,22 @@ const MenuLinks = [
     {
         icon: require('@/assets/icons/menu-send.png'),
         title: 'Send',
-        onPress: () => router.push('send'),
+        onPress: () => router.push('/send'),
     },
     {
         icon: require('@/assets/icons/received-outline.png'),
         title: 'Receive',
-        onPress: () => router.push('receive')
+        onPress: () => router.push('/receive')
     },
     {
         icon: require('@/assets/icons/swap.png'),
         title: 'Swap',
-        onPress: () => router.push('swap')
+        onPress: () => router.push('/swap')
     },
     {
         icon: require('@/assets/icons/trading.png'),
         title: 'Trade',
-        onPress: () => router.push('(modal)/tradeModal')
+        onPress: () => router.push('/(modal)/tradeModal')
     },
     {
         icon: require('@/assets/icons/format-circle.png'),

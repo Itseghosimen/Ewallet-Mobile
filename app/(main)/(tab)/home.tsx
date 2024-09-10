@@ -42,7 +42,7 @@ export default function home() {
 
                 <StyledView className='flex-row justify-between items-center px-1'>
                     <TouchableWithoutFeedback
-                        onPress={() => router.push('send')}>
+                        onPress={() => router.push('/send')}>
                         <StyledView className='flex-col items-center' style={{ gap: 5 }}>
                             <StyledView
                                 style={{
@@ -69,7 +69,7 @@ export default function home() {
                     </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback
-                        onPress={() => router.push('receive')}>
+                        onPress={() => router.push('/receive')}>
                         <StyledView className='flex-col items-center' style={{ gap: 5 }}>
                             <StyledView
                                 style={{
@@ -96,7 +96,7 @@ export default function home() {
                     </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback
-                        onPress={() => router.push('swap')}>
+                        onPress={() => router.push('/swap')}>
                         <StyledView className='flex-col items-center' style={{ gap: 5 }}>
                             <StyledView
                                 style={{
@@ -123,7 +123,7 @@ export default function home() {
                     </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback
-                        onPress={() => router.push('(modal)/tradeModal')}>
+                        onPress={() => router.push('/(modal)/tradeModal')}>
                         <StyledView className='flex-col items-center' style={{ gap: 5 }}>
                             <StyledView
                                 style={{
@@ -188,7 +188,7 @@ export default function home() {
                 </StyledView>
 
                 <Button
-                    onPress={() => router.push('(modal)/coinStatusModal')}
+                    onPress={() => router.push('/(modal)/coinStatusModal')}
                     title='View more'
                     style={'px-6 bg-black/70 my-3 max-w-[50vw] mx-auto dark:bg-primary/70 h-12 rounded-lg'}
                     textStyle={'text-white dark:text-white text-sm'}

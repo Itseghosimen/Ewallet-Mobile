@@ -27,7 +27,7 @@ export default function SendCoin() {
                 />
                 <StyledView>
                     <StyledTouch
-                        onPress={() => router.push('tokenSend')}
+                        onPress={() => router.push('/tokenSend')}
                         className='flex-row items-center'>
                         <StyledText
                             style={{

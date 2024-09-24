@@ -4,22 +4,19 @@ import { StyledText, StyledView } from '@/constants/imports'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from 'nativewind'
 import { Image } from 'expo-image'
+import DialPad from '@/components/general/DialPad'
 import { router } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import RecoveryDialPad from '@/components/general/RecoveryDialPad'
 const CELL_COUNT = 6;
 
-export default function loginConfirmPin() {
+export default function guardianPin() {
     const layout = Dimensions.get('window')
     const { colorScheme } = useColorScheme()
     const [code, setCode] = useState<string | number[]>([]);
 
-    // fetch Username
-    const username = 'Johcee'
-
-    const confirmCreatedPin = () => {
+    const newPin = () => {
         if (code.length == 6) {
-            router.push('/restoreWallet')
+            router.back()
         }
     }
 
@@ -47,13 +44,10 @@ export default function loginConfirmPin() {
 
                     }}>
                     <Image
-                        source={require('@/assets/images/pinImage.png')}
+                        source={require('@/assets/images/appicon.png')}
                         style={{
                             height: 60,
                             width: 60,
-                            borderRadius: 60,
-                            borderColor: Colors[colorScheme].primary,
-                            borderWidth: 2
                         }}
                         contentFit='contain' />
                     <StyledText
@@ -61,8 +55,9 @@ export default function loginConfirmPin() {
                             maxWidth: layout.width * 0.85,
                             fontFamily: 'Inter_400Regular'
                         }}
-                        className='text-base text-center text-black dark:text-white mx-auto'>
-                        @{username}
+                        className='text-xs text-center text-black dark:text-white mx-auto'>
+                        Passcode is defined by the {'\n'}
+                        account owner
                     </StyledText>
                 </StyledView>
                 <StyledView className='my-auto flex-row items-center justify-center' style={{ gap: 12 }}>
@@ -89,22 +84,20 @@ export default function loginConfirmPin() {
             <StyledView className='flex-1 items-center justify-center'>
                 <StyledText className='my-5 text-center text-black dark:text-white   text-sm' style={{
                     fontFamily: 'Inter_500Medium',
-                }}>Use face ID or Enter PIN code</StyledText>
+                }}>Enter a 6-digit pin</StyledText>
             </StyledView>
-            <RecoveryDialPad
+            <DialPad
                 onPress={(item) => {
-                    if (item == 'del') {
-                        setCode((prev) => prev?.slice(0, prev.length - 1))
-                    } else if (item == 'faceID') {
-
-                    } else {
-                        if (code.length <= CELL_COUNT - 1) {
-                            setCode((prev: any) => [...prev, item])
-                        }
+                    if (code.length <= CELL_COUNT - 1) {
+                        setCode((prev: any) => [...prev, item])
                     }
                 }}
-                forget={(item) => undefined}
-                confirm={confirmCreatedPin}
+                del={(item) => {
+                    if (item == 'del') {
+                        setCode((prev) => prev?.slice(0, prev.length - 1))
+                    }
+                }}
+                confirm={newPin}
                 confirmBtn={code.length} />
         </StyledView>
     )

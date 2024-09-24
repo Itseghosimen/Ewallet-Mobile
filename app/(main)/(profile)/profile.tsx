@@ -209,7 +209,8 @@ const Products = [
 const Security = [
     {
         icon: require('@/assets/icons/book-fill.png'),
-        title: 'Guardian'
+        title: 'Guardian',
+        link: '/mailVerification'
     },
     {
         icon: require('@/assets/icons/note-2.png'),

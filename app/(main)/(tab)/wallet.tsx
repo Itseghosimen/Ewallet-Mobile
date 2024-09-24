@@ -66,7 +66,7 @@ export default function wallet() {
                         tabBarLabel: 'Crypto'
                     }}
                     listeners={{
-                        focus: () => setCryptoBackground(true)
+                        focus: () => setCryptoBackground(true),
                     }}
                 />
                 <Tab.Screen name="nft" component={Overview}
@@ -74,7 +74,11 @@ export default function wallet() {
                         tabBarLabel: 'NFT'
                     }}
                     listeners={{
-                        focus: () => setCryptoBackground(false)
+                        focus: () => setCryptoBackground(false),
+                        tabPress: e => {
+                            // Prevent default action
+                            e.preventDefault();
+                        },
                     }}
                 />
                 <Tab.Screen name="earn" component={Overview}
@@ -82,14 +86,22 @@ export default function wallet() {
                         tabBarLabel: 'Earn'
                     }}
                     listeners={{
-                        focus: () => setCryptoBackground(false)
+                        focus: () => setCryptoBackground(false),
+                        tabPress: e => {
+                            // Prevent default action
+                            e.preventDefault();
+                        },
                     }} />
                 <Tab.Screen name="card" component={Overview}
                     options={{
                         tabBarLabel: 'Card'
                     }}
                     listeners={{
-                        focus: () => setCryptoBackground(false)
+                        focus: () => setCryptoBackground(false),
+                        tabPress: e => {
+                            // Prevent default action
+                            e.preventDefault();
+                        },
                     }} />
             </Tab.Navigator>
             {

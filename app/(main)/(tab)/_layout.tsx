@@ -66,6 +66,12 @@ export default function TabsLayout() {
                     )
                 }} />
             <Tabs.Screen name='market'
+                listeners={{
+                    tabPress: e => {
+                        // Prevent default action
+                        e.preventDefault();
+                    },
+                }}
                 options={{
                     headerShown: false,
                     headerTransparent: true,
@@ -90,6 +96,12 @@ export default function TabsLayout() {
                     )
                 }} />
             <Tabs.Screen name='ecosys'
+                listeners={{
+                    tabPress: e => {
+                        // Prevent default action
+                        e.preventDefault();
+                    },
+                }}
                 options={{
                     headerShown: true,
                     headerTransparent: true,
@@ -130,6 +142,12 @@ export default function TabsLayout() {
                     )
                 }} />
             <Tabs.Screen name='trade'
+                listeners={{
+                    tabPress: e => {
+                        // Prevent default action
+                        e.preventDefault();
+                    },
+                }}
                 options={{
                     headerShown: true,
                     headerTransparent: true,

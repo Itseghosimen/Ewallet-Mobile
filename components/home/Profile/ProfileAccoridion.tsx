@@ -98,7 +98,7 @@ const ProfileApp = ({ icon, title, link }: { icon: ImageSource | ImageSource[], 
     const { colorScheme } = useColorScheme()
     return (
         <StyledView className='pb-1 w-[20vw]'>
-            <Link href={link ? link : ''} asChild>
+            <Link href={link ? link : '/'} asChild>
                 <TouchableWithoutFeedback>
                     <StyledView className='flex items-center justify-center pt-4 gap-y-1.5'>
                         <Image source={icon}

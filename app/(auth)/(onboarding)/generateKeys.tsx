@@ -21,7 +21,7 @@ export default function generateKeys() {
                     setTimeout(updateProgress, 500)
                 } else if (currentProgress >= 1.0) {
                     setTimeout(() => {
-                        router.replace('walletGenerated')
+                        router.replace('/walletGenerated')
                     }, 500)
                 };
                 return currentProgress + 0.009;

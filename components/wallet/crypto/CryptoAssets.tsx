@@ -54,65 +54,53 @@ export default function CryptoAssets() {
                                     >
                                         {item.title}
                                     </StyledText>
-                                    <StyledText
-                                        className='text-xs text-secondary'
-                                        style={{
-                                            fontFamily: 'Inter_500Medium'
-                                        }}>
-                                        {item.exchange.toLocaleString('en-US', {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2,
-                                            style: 'currency',
-                                            currency: 'USD'
-                                        })}
-                                    </StyledText>
+
                                 </StyledView>
                             </StyledView>
-
-                            <StyledView className='flex-row items-end justify-between'>
-                                <StyledView>
-                                    <StyledView className='flex-row items-center'>
-                                        <StyledText
-                                            style={{
-                                                fontFamily: 'Inter_500Medium'
-                                            }}
-                                            className='text-[13px] text-black dark:text-white'>
-                                            {item.asset.toLocaleString('en-US', {
-                                                minimumFractionDigits: 2,
-                                                maximumFractionDigits: 2,
-                                            })}
-                                        </StyledText>
-                                        <StyledText className='text-[11px] text-secondary uppercase'
-                                            style={{
-                                                fontFamily: 'Inter_500Medium'
-                                            }}>
-                                            {' '}{item.slug}
-                                        </StyledText>
-                                    </StyledView>
-
-
-                                    <StyledText className='text-[11px] text-secondary uppercase'
-                                        style={{
-                                            fontFamily: 'Inter_500Medium'
-                                        }}>
-                                        {item.pip.toLocaleString('en-US', {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2,
-                                            style: 'currency',
-                                            currency: 'USD'
-                                        })}
-                                    </StyledText>
-                                </StyledView>
-                                <StyledText className='text-[10px] text-black dark:text-primary uppercase bg-white dark:bg-background px-2 py-1 rounded-full'
+                            <StyledView className='flex-row items-center'>
+                                <StyledText
                                     style={{
-                                        fontFamily: 'Inter_500Medium',
-                                        color: item.signal > 0 ? '#18EAFF' : '#F80F0F'
-                                    }}>
-                                    {item.signal > 0 ? '+' : ''}{item.signal.toLocaleString('en-US', {
+                                        fontFamily: 'Inter_500Medium'
+                                    }}
+                                    className='text-[13px] text-black dark:text-white'>
+                                    {item.asset.toLocaleString('en-US', {
                                         minimumFractionDigits: 2,
                                         maximumFractionDigits: 2,
-                                    })}%
+                                    })}
                                 </StyledText>
+                                <StyledText className='text-[11px] text-secondary uppercase'
+                                    style={{
+                                        fontFamily: 'Inter_500Medium'
+                                    }}>
+                                    {' '}{item.slug}
+                                </StyledText>
+                            </StyledView>
+
+                            <StyledView className='flex-row items-center justify-between'>
+                                <StyledText className='text-[10px] text-secondary uppercase'
+                                    style={{
+                                        fontFamily: 'Inter_500Medium'
+                                    }}>
+                                    ~{item.pip.toLocaleString('en-US', {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2,
+                                        style: 'currency',
+                                        currency: 'USD'
+                                    })}
+                                </StyledText>
+                                <StyledView className='rounded-full overflow-hidden'>
+                                    <StyledText className='text-[10px] text-black dark:text-primary uppercase bg-white dark:bg-background px-2 py-1 rounded-full overflow-hidden'
+                                        style={{
+                                            fontFamily: 'Inter_500Medium',
+                                            color: item.signal > 0 ? '#18EAFF' : '#F80F0F'
+                                        }}>
+                                        {item.signal > 0 ? '+' : ''}{item.signal.toLocaleString('en-US', {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}%
+                                    </StyledText>
+                                </StyledView>
+
 
                             </StyledView>
                         </StyledView>

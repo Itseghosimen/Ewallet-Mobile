@@ -90,7 +90,7 @@ export default function Balance(props: { balance: number; increase: number; perc
                                 contentFit='contain'
                             />
                         }
-                        textStyle={'text-white dark:text-black text-base  '}
+                        textStyle={'text-white dark:text-black text-base'}
                         style={'bg-black dark:bg-primary/80 flex-row-reverse px-4 gap-x-2 h-11 rounded-full'} />
                 }
             </StyledView>

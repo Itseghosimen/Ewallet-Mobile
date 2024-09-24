@@ -34,6 +34,9 @@ export default function MainLayout() {
             <Stack.Screen name="(wallet)"
                 options={{ headerShown: false }}
             />
+            <Stack.Screen name="(guardian)"
+                options={{ headerShown: false }}
+            />
             <Stack.Screen name="(modal)/coinStatusModal"
                 options={{
                     headerShown: false,

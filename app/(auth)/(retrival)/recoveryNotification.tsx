@@ -159,7 +159,7 @@ export default function Template() {
                 <ActivityIndicator size={'large'} />
             </StyledView>
 
-            <ConfirmRecovery isVisible={confirm} close={() => setConfirm(false)} />
+            <ConfirmRecovery to={'/recoveryProgress'} type='Wallet Recovery' isVisible={confirm} close={() => setConfirm(false)} />
         </StyledView >
 
     )

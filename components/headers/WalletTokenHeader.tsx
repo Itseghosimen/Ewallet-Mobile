@@ -79,16 +79,28 @@ export default function WalletTokenHeader() {
                 </StyledView>
 
 
-                <StyledTouch className='mt-2'>
-                    <Image
-                        source={require('@/assets/icons/alert.png')}
-                        contentFit="contain"
-                        style={{
-                            tintColor: Colors[colorScheme].tint,
-                            height: 16,
-                            width: 16
-                        }} />
-                </StyledTouch>
+                <StyledView className='flex-row items-center mt-2' style={{ gap: 20 }}>
+                    <StyledTouch >
+                        <Image
+                            source={require('@/assets/icons/star-outline.png')}
+                            contentFit="contain"
+                            style={{
+                                tintColor: '#F3BA2F',
+                                height: 16,
+                                width: 16
+                            }} />
+                    </StyledTouch>
+                    <StyledTouch >
+                        <Image
+                            source={require('@/assets/icons/alert.png')}
+                            contentFit="contain"
+                            style={{
+                                tintColor: Colors[colorScheme].tint,
+                                height: 16,
+                                width: 16
+                            }} />
+                    </StyledTouch>
+                </StyledView>
             </StyledView>
         </BlurView>
     )

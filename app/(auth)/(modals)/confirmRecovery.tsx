@@ -1,18 +1,17 @@
 import { Modal, Pressable } from 'react-native'
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { StyledComponent, useColorScheme } from 'nativewind'
+import { useColorScheme } from 'nativewind'
 import { StyledText, StyledTouch, StyledView } from '@/constants/imports'
-import { FontAwesome5 } from '@expo/vector-icons'
 import { Colors } from '@/constants/Colors'
 import { Image, ImageBackground } from 'expo-image'
-import ReceiverInfo from '@/components/home/send/ReceiverInfo'
-import MoreInfo from '@/components/home/send/MoreInfo'
-import { router } from 'expo-router'
+import { Href, router } from 'expo-router'
 
 
 type SecurityProps = {
     isVisible: boolean,
+    type: string,
+    to: Href<string>,
     close: () => void
 }
 
@@ -130,7 +129,7 @@ export default function ConfirmRecovery(props: SecurityProps) {
                                 style={{
                                     fontFamily: 'Inter_500Medium',
                                 }} className='text-sm   text-black dark:text-white'>
-                                Wallet Recovery
+                                {props.type}
                             </StyledText>
                         </StyledView>
 
@@ -197,7 +196,7 @@ export default function ConfirmRecovery(props: SecurityProps) {
                         <StyledTouch
                             onPress={() => {
                                 props.close()
-                                router.push('/recoveryProgress')
+                                router.push(props.to)
                             }}
                             className='h-14 mt-3 w-full bg-black dark:bg-primary rounded-full flex items-center justify-center'>
                             <StyledText className='text-white dark:text-black' style={{

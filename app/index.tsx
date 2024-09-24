@@ -105,7 +105,9 @@ export default function wwelcome() {
                                 }}
                             />
                         </StyledTouch>
+
                         <StyledTouch
+                            // onPress={() => router.push('/profile')}
                             className='border border-black dark:border-primary/40 h-11 w-11 flex items-center justify-center rounded-xl'>
                             <Image source={require('@/assets/icons/apple.png')}
                                 style={{

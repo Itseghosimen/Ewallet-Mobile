@@ -2,10 +2,11 @@ import React from 'react'
 import { StyledText, StyledView } from '@/constants/imports'
 import { ScrollView } from 'react-native'
 import { Image } from 'expo-image'
+import { BottomNav } from './Info'
 
 export default function Activity() {
     return (
-        <StyledView>
+        <StyledView className='pb-20'>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{
@@ -96,6 +97,7 @@ export default function Activity() {
                     })
                 }
             </ScrollView>
+            <BottomNav />
         </StyledView>
     )
 }

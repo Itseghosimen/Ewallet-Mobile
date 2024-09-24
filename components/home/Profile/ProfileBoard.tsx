@@ -3,7 +3,7 @@ import * as Clipboard from 'expo-clipboard';
 import { StyledText, StyledTouch, StyledView } from '@/constants/imports'
 import { Image, ImageBackground } from 'expo-image'
 import { useColorScheme } from 'nativewind'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 
 export default function ProfileBoard() {
@@ -32,7 +32,7 @@ export default function ProfileBoard() {
             <StyledView className='p-4 absolute top-11 inset-x-3 -z-10 w-full rounded-xl gap-y-1'
                 style={{ backgroundColor: Colors[colorScheme].otpbg }}>
                 <StyledView className='flex-row items-center justify-between'>
-                    <Link href={'scanCode'} asChild>
+                    <Link href={'/scanCode'} asChild>
                         <StyledTouch>
                             <Image
                                 source={require('@/assets/icons/qrcode.png')}
@@ -44,7 +44,7 @@ export default function ProfileBoard() {
                                 contentFit='contain' />
                         </StyledTouch>
                     </Link>
-                    <Link href={'switchAccount'} asChild>
+                    <Link href={'/switchAccount'} asChild>
                         <StyledTouch>
                             <Image
                                 source={require('@/assets/icons/pen.png')}
@@ -112,46 +112,48 @@ export default function ProfileBoard() {
 const BarCard = (props: { icon: boolean; number: number; type: string }) => {
     const { colorScheme } = useColorScheme()
     return (
-        <StyledView className='flex items-end gap-y-0.5 px-4 py-2 rounded-lg'
-            style={{
-                elevation: 5,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.2,
-                shadowRadius: 1,
-                backgroundColor: Colors[colorScheme].otpbg,
-            }}>
-            <StyledView className='flex-row items-center justify-center gap-x-4'>
-                {
-                    props.icon ?
-                        <Image
-                            source={require('@/assets/icons/Star.png')}
-                            style={{
-                                height: 13,
-                                width: 13,
-                                tintColor: Colors[colorScheme].primary
-                            }}
-                            contentFit='contain' /> :
-                        <StyledText
-                            style={{
-                                fontFamily: 'Inter_600SemiBold',
-                            }} className='text-black dark:text-primary text-sm  '>
-                            #
-                        </StyledText>
-                }
+        <StyledTouch onPress={() => router.push('/personalAcct')}>
+            <StyledView className='flex items-end gap-y-0.5 px-4 py-2 rounded-lg'
+                style={{
+                    elevation: 5,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 1,
+                    backgroundColor: Colors[colorScheme].otpbg,
+                }}>
+                <StyledView className='flex-row items-center justify-center gap-x-4'>
+                    {
+                        props.icon ?
+                            <Image
+                                source={require('@/assets/icons/Star.png')}
+                                style={{
+                                    height: 13,
+                                    width: 13,
+                                    tintColor: Colors[colorScheme].primary
+                                }}
+                                contentFit='contain' /> :
+                            <StyledText
+                                style={{
+                                    fontFamily: 'Inter_600SemiBold',
+                                }} className='text-black dark:text-primary text-sm  '>
+                                #
+                            </StyledText>
+                    }
+                    <StyledText
+                        style={{
+                            fontFamily: 'Inter_500Medium',
+                        }} className='text-black dark:text-white  '>
+                        {props.number.toLocaleString('en-us')}
+                    </StyledText>
+                </StyledView>
                 <StyledText
                     style={{
                         fontFamily: 'Inter_500Medium',
-                    }} className='text-black dark:text-white  '>
-                    {props.number.toLocaleString('en-us')}
+                    }} className='text-xs text-secondary  '>
+                    {props.type}
                 </StyledText>
             </StyledView>
-            <StyledText
-                style={{
-                    fontFamily: 'Inter_500Medium',
-                }} className='text-xs text-secondary  '>
-                {props.type}
-            </StyledText>
-        </StyledView>
+        </StyledTouch>
     )
 }

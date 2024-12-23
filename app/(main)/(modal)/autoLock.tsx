@@ -1,15 +1,24 @@
+import React, { useState } from "react";
+import { Modal, Pressable } from "react-native";
+import { StyledComponent, useColorScheme } from "nativewind";
+
 import Button from "@/components/general/Buttons/Button";
 import SwitchBtn from "@/components/general/Switch";
 import SettingBtn from "@/components/home/settings/SettingBtn";
 import { Colors } from "@/constants/Colors";
 import { StyledText, StyledView } from "@/constants/imports";
-import { StyledComponent, useColorScheme } from "nativewind";
-import React, { useState } from "react";
-import { Modal, Pressable } from "react-native";
+
+import { useAsyncStorage } from "@/hooks/useAsyncStorage";
+import { AutolockType } from "@/types/hooks";
 
 export default function AppLock() {
   const [autoLock, setAutoLock] = useState(false);
+
   const { colorScheme } = useColorScheme();
+  const [_, setAutolockOption] = useAsyncStorage<AutolockType>(
+    "autolock",
+    "immediately"
+  );
 
   return (
     <>
@@ -46,7 +55,8 @@ export default function AppLock() {
                 type="switch"
                 title="Immediately"
                 frontIcon={undefined}
-                onPress={undefined}
+                // onPress={undefined}
+                onPress={() => setAutolockOption("immediately")}
                 backIcon={<SwitchBtn />}
                 textStyle={{
                   color: "#49515D",
@@ -56,7 +66,8 @@ export default function AppLock() {
                 type="switch"
                 title="If left for 1 minutes"
                 frontIcon={undefined}
-                onPress={undefined}
+                // onPress={undefined}
+                onPress={() => setAutolockOption("1 minute")}
                 backIcon={<SwitchBtn />}
                 textStyle={{
                   color: "#49515D",
@@ -66,7 +77,8 @@ export default function AppLock() {
                 type="switch"
                 title="If left for 5 minutes"
                 frontIcon={undefined}
-                onPress={undefined}
+                // onPress={undefined}
+                onPress={() => setAutolockOption("5 minutes")}
                 backIcon={<SwitchBtn />}
                 textStyle={{
                   color: "#49515D",
@@ -76,7 +88,8 @@ export default function AppLock() {
                 type="switch"
                 title="If left for 30 minutes"
                 frontIcon={undefined}
-                onPress={undefined}
+                // onPress={undefined}
+                onPress={() => setAutolockOption("30 minutes")}
                 backIcon={<SwitchBtn />}
                 textStyle={{
                   color: "#49515D",

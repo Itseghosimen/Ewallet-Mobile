@@ -13,11 +13,17 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Appearance, AppState } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import * as LocalAuthentication from "expo-local-authentication";
+import { useAsyncStorage } from "@/hooks/useAsyncStorage";
+import type { AutolockType } from "@/types/hooks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 // SplashScreen.preventAutoHideAsync();
 
-const LOCK_TIME = 3000;
+/**
+ * Base lock time of one minute.
+ */
+const LOCK_TIME = 60000;
 
 export default function RootLayout() {
   const { colorScheme } = useColorScheme();
@@ -28,8 +34,11 @@ export default function RootLayout() {
     Inter_600SemiBold,
     Inter_700Bold,
   });
+  const [autolockType] = useAsyncStorage<AutolockType>("autolock");
 
   const appState = useRef(AppState.currentState);
+
+  //* EFFECTS
   useEffect(() => {
     if (fontsLoaded && fontError) {
       Appearance.setColorScheme(colorScheme);
@@ -40,6 +49,10 @@ export default function RootLayout() {
     }
   }, [fontsLoaded, fontError]);
 
+  async function startLocktime() {
+    return AsyncStorage.setItem("lockTime", Date.now().toString());
+  }
+
   //* Appstate listener for inactivity or background state
   useEffect(() => {
     const subscription = AppState.addEventListener(
@@ -49,11 +62,38 @@ export default function RootLayout() {
         const isEnrolled = await LocalAuthentication.isEnrolledAsync();
 
         if (isEnrolled && isCompatible) {
-          if (
+          if (nextAppState === "background") {
+            await startLocktime();
+          } else if (
             appState.current.match(/inactive|background/) &&
             nextAppState === "active"
           ) {
-            router.push("/(auth)/(lock)/lock");
+            const elapsedTime =
+              Date.now() -
+              parseInt((await AsyncStorage.getItem("lockTime")) || "0");
+
+            if (!autolockType || autolockType === "immediately") {
+              router.push("/(auth)/(lock)/lock");
+              return;
+            }
+
+            if (elapsedTime > LOCK_TIME) {
+              if (autolockType === "1 minute" && elapsedTime < LOCK_TIME * 5) {
+                router.push("/(auth)/(lock)/lock");
+              }
+              if (
+                autolockType === "5 minutes" &&
+                elapsedTime < LOCK_TIME * 30
+              ) {
+                router.push("/(auth)/(lock)/lock");
+              }
+              if (
+                autolockType === "30 minutes" &&
+                elapsedTime > LOCK_TIME * 30
+              ) {
+                router.push("/(auth)/(lock)/lock");
+              }
+            }
             return;
           }
         }

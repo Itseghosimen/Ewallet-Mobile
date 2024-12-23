@@ -16,14 +16,21 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses Face ID to authenticate the user."
-      }
+      },
+      "bundleIdentifier": "com.itseghosime.enetwork"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#0C0C12"
       },
-      "package": "com.itseghosime.enetwork"
+      "package": "com.itseghosime.enetwork",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
     },
     "web": {
       "bundler": "metro",

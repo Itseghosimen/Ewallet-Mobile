@@ -9,6 +9,7 @@ export default function _layout() {
       <Stack.Screen name="(modals)" options={{ headerShown: false }} />
       <Stack.Screen name="(loginQRCode)" options={{ headerShown: false }} />
       <Stack.Screen name="(retrival)" options={{ headerShown: false }} />
+      <Stack.Screen name="(lock)/lock" options={{ headerShown: false }} />
     </Stack>
   );
 }

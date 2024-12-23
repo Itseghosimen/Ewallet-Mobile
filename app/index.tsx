@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { Image, ImageBackground } from "expo-image";
 import { useColorScheme } from "nativewind";
 import * as LocalAuthentication from "expo-local-authentication";
@@ -41,6 +41,11 @@ export default function Welcome() {
       return;
     }
 
+    if (isEnrolled) {
+      alert("You already have a passkey.");
+      return;
+    }
+
     const result = await LocalAuthentication.authenticateAsync({
       promptMessage: "Authenticate with Biometrics",
       fallbackLabel: "Use Passcode",
@@ -48,7 +53,7 @@ export default function Welcome() {
 
     if (result.success) {
       alert("Authentication successful");
-      // Perform login action here
+      router.replace("/generateKeys");
     } else {
       alert("Authentication failed");
     }

@@ -13,7 +13,10 @@
       "backgroundColor": "#0C0C12"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses Face ID to authenticate the user."
+      }
     },
     "android": {
       "adaptiveIcon": {

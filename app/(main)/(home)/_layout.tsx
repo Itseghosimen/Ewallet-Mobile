@@ -1,4 +1,4 @@
-import Button from "@/components/general/Buttons/Button";
+// import Button from "@/components/general/Buttons/Button";
 import { Colors } from "@/constants/Colors";
 import { StyledTouch, StyledView } from "@/constants/imports";
 import { Image } from "expo-image";
@@ -8,6 +8,7 @@ import React from "react";
 
 export default function HomeLayout() {
   const { colorScheme } = useColorScheme();
+
   return (
     <Stack
       screenOptions={{

@@ -1,5 +1,5 @@
 import { router, Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
+// import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 import {
   useFonts,
@@ -27,6 +27,8 @@ export default function RootLayout() {
     Inter_700Bold,
   });
 
+  console.log(fontError);
+
   useEffect(() => {
     if (fontsLoaded && fontError) {
       Appearance.setColorScheme(colorScheme);
@@ -39,21 +41,21 @@ export default function RootLayout() {
 
   useEffect(() => {
     async function checkPasskey() {
-      const hasHardware = await LocalAuthentication.hasHardwareAsync();
+      const isCompatible = await LocalAuthentication.hasHardwareAsync();
       const isEnrolled = await LocalAuthentication.isEnrolledAsync();
 
-      if (!hasHardware) return;
+      if (!isCompatible) return;
 
-      // if (isEnrolled) {
-      //   await LocalAuthentication.authenticateAsync({
-      //     promptMessage: "Authenticate with Biometrics",
-      //     fallbackLabel: "Use Passcode",
-      //   });
-      //   return;
-      // }
+      if (isEnrolled) {
+        await LocalAuthentication.authenticateAsync({
+          promptMessage: "Authenticate with Biometrics",
+          fallbackLabel: "Use Passcode",
+        });
+        return;
+      }
     }
     checkPasskey();
-  }, []);
+  });
 
   NativeWindStyleSheet.setOutput({
     default: "native",

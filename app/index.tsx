@@ -4,21 +4,22 @@ import { useColorScheme } from "nativewind";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as Keychain from "react-native-keychain";
 import * as Crypto from "expo-crypto";
-// import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
-// import { createNexusClient, NexusClient } from "@biconomy/sdk";
-// import { baseSepolia } from "viem/chains";
-// import { http } from "viem";
-// import {
-//   toWebAuthnKey,
-//   toPasskeyValidator,
-//   WebAuthnMode,
-// } from "@biconomy/passkey";
+import { createNexusClient, NexusClient } from "@biconomy/sdk";
+import { baseSepolia } from "viem/chains";
+import { http } from "viem";
+import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
+
+import {
+  toWebAuthnKey,
+  toPasskeyValidator,
+  WebAuthnMode,
+} from "@biconomy/passkey";
 
 import Button from "@/components/general/Buttons/Button";
 import { StyledText, StyledTouch, StyledView } from "@/constants/imports";
 import { router } from "expo-router";
 import { Colors } from "@/constants/Colors";
-import { Dimensions, Platform } from "react-native";
+import { Dimensions } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AccountRecovery from "./(auth)/(modals)/accountRecovery";
 import AndroidLogin from "./(auth)/(modals)/androidLogin";
@@ -27,7 +28,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const BUNDLER_URL =
   "https://bundler.biconomy.io/api/v3/84532/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44";
 
-export default function Page() {
+export default function Welcome() {
   const { colorScheme } = useColorScheme();
   const layout = Dimensions.get("window");
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -52,6 +53,8 @@ export default function Page() {
       Crypto.CryptoDigestAlgorithm.SHA256,
       "GitHub stars are neat 🌟"
     );
+    const privateKey = generatePrivateKey();
+    console.log("viem", privateKey);
     console.log("Digest: ", digest);
     const passkey = "Passkey-" + Math.random().toString(36).substring(2, 15);
     return passkey;
@@ -110,63 +113,63 @@ export default function Page() {
   // -------------------------------------------------------------------------
 
   // Initialize nexus client
-  // async function initNexusClient() {
-  //   const privateKey = generatePrivateKey();
-  //   const account = privateKeyToAccount(`0x${privateKey}`);
+  async function initNexusClient() {
+    const privateKey = generatePrivateKey();
+    const account = privateKeyToAccount(`0x${privateKey}`);
 
-  //   const nexusClient = await createNexusClient({
-  //     signer: account,
-  //     chain: baseSepolia,
-  //     transport: http(),
-  //     bundlerTransport: http(BUNDLER_URL),
-  //   });
+    const nexusClient = await createNexusClient({
+      signer: account,
+      chain: baseSepolia,
+      transport: http(),
+      bundlerTransport: http(BUNDLER_URL),
+    });
 
-  //   await AsyncStorage.setItem("@userNexusClient", JSON.stringify(nexusClient));
+    await AsyncStorage.setItem("@userNexusClient", JSON.stringify(nexusClient));
 
-  //   return { nexusClient, privateKey };
-  // }
+    return { nexusClient, privateKey };
+  }
 
   // Register passkey
-  // async function registerPasskey(
-  //   nexusClient: NexusClient,
-  //   passkeyName: string
-  // ) {
-  //   // Create WebAuthn key
-  //   const webAuthnKey = await toWebAuthnKey({
-  //     passkeyName: passkeyName,
-  //     mode: WebAuthnMode.Register,
-  //   });
+  async function registerPasskey(
+    nexusClient: NexusClient,
+    passkeyName: string
+  ) {
+    // Create WebAuthn key
+    const webAuthnKey = await toWebAuthnKey({
+      passkeyName: passkeyName,
+      mode: WebAuthnMode.Register,
+    });
 
-  //   // Create passkey validator
-  //   const passkeyValidator = await toPasskeyValidator({
-  //     account: nexusClient.account,
-  //     webAuthnKey,
-  //   });
+    // Create passkey validator
+    const passkeyValidator = await toPasskeyValidator({
+      account: nexusClient.account,
+      webAuthnKey,
+    });
 
-  //   // Store webAuthnKey for future use
-  //   const formattedWebAuthnKey = {
-  //     pubX: webAuthnKey.pubX.toString(),
-  //     pubY: webAuthnKey.pubY.toString(),
-  //     authenticatorId: webAuthnKey.authenticatorId,
-  //     authenticatorIdHash: webAuthnKey.authenticatorIdHash,
-  //   };
-  //   await AsyncStorage.setItem(
-  //     "@webAuthnKey",
-  //     JSON.stringify(formattedWebAuthnKey)
-  //   );
+    // Store webAuthnKey for future use
+    const formattedWebAuthnKey = {
+      pubX: webAuthnKey.pubX.toString(),
+      pubY: webAuthnKey.pubY.toString(),
+      authenticatorId: webAuthnKey.authenticatorId,
+      authenticatorIdHash: webAuthnKey.authenticatorIdHash,
+    };
+    await AsyncStorage.setItem(
+      "@webAuthnKey",
+      JSON.stringify(formattedWebAuthnKey)
+    );
 
-  //   return passkeyValidator;
-  // }
+    return passkeyValidator;
+  }
 
-  // async function createAccount() {
-  //   try {
-  //     const { nexusClient, privateKey } = await initNexusClient();
-  //     await registerPasskey(nexusClient, privateKey);
-  //     alert("Error creating account");
-  //   } catch (e) {
-  //     alert("Error creating account");
-  //   }
-  // }
+  async function createAccount() {
+    try {
+      const { nexusClient, privateKey } = await initNexusClient();
+      await registerPasskey(nexusClient, privateKey);
+      alert("Error creating account");
+    } catch (e) {
+      alert("Error creating account");
+    }
+  }
 
   return (
     <StyledView className="px-3 pb-5 flex-1 gap-6 bg-white dark:bg-background">

@@ -1,14 +1,13 @@
 import { BlurView } from "expo-blur";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
-import { AppState } from "react-native";
 import { router } from "expo-router";
 import { StyledView } from "@/constants/imports";
 
 export default function Lock() {
   useEffect(() => {
-    (async () => {
+    async function autoUnlock() {
       const isCompatible = await LocalAuthentication.hasHardwareAsync();
       const isEnrolled = await LocalAuthentication.isEnrolledAsync();
 
@@ -27,12 +26,21 @@ export default function Lock() {
         fallbackLabel: "Use Passcode",
       });
 
-      if (result.success) {
-        router.back();
-      } else {
-        router.push("/(auth)/(lock)/lock");
+      if (!result.success) {
+        console.log(result);
+        return;
+        // router.replace("/");
       }
-    })();
+
+      if (router.canGoBack()) {
+        router.back();
+        return;
+      }
+      router.replace("/home");
+      return;
+    }
+    return;
+    autoUnlock();
   }, []);
 
   return (

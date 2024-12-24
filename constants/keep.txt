@@ -1,0 +1,72 @@
+  //* Appstate listener for inactivity or background state
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      "change",
+      async (nextAppState) => {
+        const isCompatible = await LocalAuthentication.hasHardwareAsync();
+        const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+        if (isEnrolled && isCompatible) {
+          if (nextAppState.match(/inactive|background/)) {
+            await AsyncStorage.setItem("lockTime", Date.now().toString());
+          }
+          if (
+            appState.current.match(/inactive|background/) &&
+            nextAppState === "active"
+          ) {
+            const elapsedTime =
+              Date.now() -
+              parseInt((await AsyncStorage.getItem("lockTime")) || "0");
+            if (!autolockType || autolockType === "immediately") {
+              if (nextAppState === "active") {
+                console.log("app is active");
+                // router.push("/(auth)/(lock)/lock");
+                return;
+              }
+              router.push("/(auth)/(lock)/lock");
+              return;
+            }
+            if (elapsedTime > LOCK_TIME) {
+              if (autolockType === "1 minute" && elapsedTime > LOCK_TIME) {
+                router.push("/(auth)/(lock)/lock");
+              }
+              if (autolockType === "5 minutes" && elapsedTime > LOCK_TIME * 5) {
+                router.push("/(auth)/(lock)/lock");
+              }
+              if (
+                autolockType === "30 minutes" &&
+                elapsedTime > LOCK_TIME * 30
+              ) {
+                router.push("/(auth)/(lock)/lock");
+              }
+            }
+            return;
+          }
+        }
+        appState.current = nextAppState;
+      }
+    );
+    return () => {
+      subscription.remove();
+    };
+  }, [autolockType, appState.current]);
+
+  //* Check for passkey authentication
+  useEffect(() => {
+    async function checkPasskey() {
+      const isCompatible = await LocalAuthentication.hasHardwareAsync();
+      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+      if (!isCompatible) return;
+      if (isEnrolled) {
+        const result = await LocalAuthentication.authenticateAsync({
+          promptMessage: "Authenticate with Biometrics",
+          fallbackLabel: "Use Passcode",
+        });
+        if (result.success) {
+          router.replace("/home");
+        } else {
+          router.replace("/");
+        }
+      }
+    }
+    checkPasskey();
+  }, []);

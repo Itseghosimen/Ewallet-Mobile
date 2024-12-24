@@ -2,6 +2,17 @@ import { useState } from "react";
 import { Image, ImageBackground } from "expo-image";
 import { useColorScheme } from "nativewind";
 import * as LocalAuthentication from "expo-local-authentication";
+import * as Keychain from "react-native-keychain";
+import * as Crypto from "expo-crypto";
+// import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
+// import { createNexusClient, NexusClient } from "@biconomy/sdk";
+// import { baseSepolia } from "viem/chains";
+// import { http } from "viem";
+// import {
+//   toWebAuthnKey,
+//   toPasskeyValidator,
+//   WebAuthnMode,
+// } from "@biconomy/passkey";
 
 import Button from "@/components/general/Buttons/Button";
 import { StyledText, StyledTouch, StyledView } from "@/constants/imports";
@@ -11,8 +22,12 @@ import { Dimensions, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AccountRecovery from "./(auth)/(modals)/accountRecovery";
 import AndroidLogin from "./(auth)/(modals)/androidLogin";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Welcome() {
+const BUNDLER_URL =
+  "https://bundler.biconomy.io/api/v3/84532/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44";
+
+export default function Page() {
   const { colorScheme } = useColorScheme();
   const layout = Dimensions.get("window");
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -32,32 +47,126 @@ export default function Welcome() {
     setIsRecovery(false);
   };
 
+  async function generatePasskey() {
+    const digest = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      "GitHub stars are neat 🌟"
+    );
+    console.log("Digest: ", digest);
+    const passkey = "Passkey-" + Math.random().toString(36).substring(2, 15);
+    return passkey;
+  }
+
   async function createPassKey() {
-    const hasHardware = await LocalAuthentication.hasHardwareAsync();
-    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+    const hasBiometrics = await LocalAuthentication.hasHardwareAsync();
 
-    if (!hasHardware) {
-      alert("Biometric authentication is not available on this device");
+    if (!hasBiometrics) {
+      console.log("Biometric authentication is not available");
       return;
     }
 
-    if (isEnrolled) {
-      alert("You already have a passkey.");
-      return;
-    }
+    try {
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: "Sign in with Biometrics",
+        fallbackLabel: "Use Passcode",
+      });
 
-    const result = await LocalAuthentication.authenticateAsync({
-      promptMessage: "Authenticate with Biometrics",
-      fallbackLabel: "Use Passcode",
-    });
-
-    if (result.success) {
-      alert("Authentication successful");
-      router.replace("/generateKeys");
-    } else {
-      alert("Authentication failed");
+      if (result.success) {
+        const passkey = await generatePasskey();
+        await savePasskeyToSecureStorage(passkey);
+        console.log("User authenticated successfully!");
+      } else {
+        console.log("Authentication failed");
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
     }
   }
+
+  async function savePasskeyToSecureStorage(passkey: string) {
+    try {
+      await Keychain.setGenericPassword("passkey", passkey);
+      alert("Passkey saved securely to Keychain!");
+    } catch (error) {
+      console.log(error);
+      alert("Error saving passkey to Keychain");
+    }
+  }
+
+  async function getPasskeyFromSecureStorage() {
+    try {
+      const credentials = await Keychain.getGenericPassword();
+      if (credentials) {
+        console.log("Passkey retrieved:", credentials.password);
+        return credentials.password;
+      }
+      return null;
+    } catch (error) {
+      console.log("Error retrieving passkey", error);
+      return null;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+
+  // Initialize nexus client
+  // async function initNexusClient() {
+  //   const privateKey = generatePrivateKey();
+  //   const account = privateKeyToAccount(`0x${privateKey}`);
+
+  //   const nexusClient = await createNexusClient({
+  //     signer: account,
+  //     chain: baseSepolia,
+  //     transport: http(),
+  //     bundlerTransport: http(BUNDLER_URL),
+  //   });
+
+  //   await AsyncStorage.setItem("@userNexusClient", JSON.stringify(nexusClient));
+
+  //   return { nexusClient, privateKey };
+  // }
+
+  // Register passkey
+  // async function registerPasskey(
+  //   nexusClient: NexusClient,
+  //   passkeyName: string
+  // ) {
+  //   // Create WebAuthn key
+  //   const webAuthnKey = await toWebAuthnKey({
+  //     passkeyName: passkeyName,
+  //     mode: WebAuthnMode.Register,
+  //   });
+
+  //   // Create passkey validator
+  //   const passkeyValidator = await toPasskeyValidator({
+  //     account: nexusClient.account,
+  //     webAuthnKey,
+  //   });
+
+  //   // Store webAuthnKey for future use
+  //   const formattedWebAuthnKey = {
+  //     pubX: webAuthnKey.pubX.toString(),
+  //     pubY: webAuthnKey.pubY.toString(),
+  //     authenticatorId: webAuthnKey.authenticatorId,
+  //     authenticatorIdHash: webAuthnKey.authenticatorIdHash,
+  //   };
+  //   await AsyncStorage.setItem(
+  //     "@webAuthnKey",
+  //     JSON.stringify(formattedWebAuthnKey)
+  //   );
+
+  //   return passkeyValidator;
+  // }
+
+  // async function createAccount() {
+  //   try {
+  //     const { nexusClient, privateKey } = await initNexusClient();
+  //     await registerPasskey(nexusClient, privateKey);
+  //     alert("Error creating account");
+  //   } catch (e) {
+  //     alert("Error creating account");
+  //   }
+  // }
 
   return (
     <StyledView className="px-3 pb-5 flex-1 gap-6 bg-white dark:bg-background">
@@ -116,7 +225,7 @@ export default function Welcome() {
         <StyledView className="flex-row items-center justify-between">
           <Button
             // onPress={() => router.push("/generateKeys")}
-            onPress={() => createPassKey()}
+            onPress={async () => await generatePasskey()}
             style={
               "bg-black dark:bg-primary h-14 rounded-full max-w-[60vw] w-full justify-center"
             }

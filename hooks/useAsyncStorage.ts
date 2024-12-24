@@ -1,33 +1,25 @@
-import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState, useEffect, useCallback } from "react";
+import { useAsyncStorage as _useAsyncStorage } from "@react-native-async-storage/async-storage";
 
 export function useAsyncStorage<T>(key: string, initialValue?: T) {
   const [storedValue, setStoredValue] = useState<T | undefined>(undefined);
+  const { getItem, setItem } = _useAsyncStorage(key);
 
-  async function getStoredItem(key: string, initialValue?: T) {
-    try {
-      const item = await AsyncStorage.getItem(key);
-      const value = item ? JSON.parse(item) : initialValue;
-      setStoredValue(value);
-    } catch (error) {
-      console.log(error);
-    }
+  const readItemFromStorage = useCallback(async () => {
+    const item = await getItem();
+    const value = item ? JSON.parse(item) : initialValue;
+    setStoredValue(value);
+  }, [key, initialValue, getItem]);
+
+  async function writeItemToStorage(value: T | ((val: T | undefined) => T)) {
+    const valueToStore = value instanceof Function ? value(storedValue) : value;
+    await setItem(JSON.stringify(valueToStore));
+    setStoredValue(valueToStore);
   }
 
   useEffect(() => {
-    getStoredItem(key, initialValue);
-  }, [key, initialValue]);
+    readItemFromStorage();
+  }, [key, readItemFromStorage]);
 
-  async function setValue(value: T | ((val: T | undefined) => T)) {
-    try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      await AsyncStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  return [storedValue, setValue] as const;
+  return [storedValue, writeItemToStorage] as const;
 }

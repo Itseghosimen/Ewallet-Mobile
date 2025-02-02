@@ -14,14 +14,23 @@
       "backgroundColor": "#0C0C12"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "associatedDomains": [
+        "applinks:enetecosystem.org",
+        "webcredentials:enetecosystem.org"
+      ],
+      "bundleIdentifier": "com.itseghosime.enetwork"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#0C0C12"
       },
-      "package": "com.itseghosime.enetwork"
+      "package": "com.itseghosime.enetwork",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -38,7 +47,8 @@
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
           "recordAudioAndroid": true
         }
-      ]
+      ],
+      ["./plugins/withPortalMPC.js"]
     ],
     "experiments": {
       "typedRoutes": true
@@ -48,9 +58,8 @@
         "origin": false
       },
       "eas": {
-        "projectId": "d16c2f9d-6872-49b4-af3d-0d26d30db242"
+        "projectId": "9c993bd9-c550-4cc9-8879-d0fae5f28efc"
       }
-    },
-    "owner": "itseghosime"
+    }
   }
 }
